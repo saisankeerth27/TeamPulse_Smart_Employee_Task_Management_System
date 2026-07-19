@@ -10,6 +10,7 @@ import AddDepartment from "./pages/AddDepartment";
 import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
 import Chat from "./pages/Chat";
+import Analytics from "./pages/Analytics";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -114,6 +115,17 @@ function App() {
                         <ProtectedRoute>
 
                             <Chat />
+
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/analytics"
+                    element={
+                        <ProtectedRoute>
+
+                            <Analytics />
 
                         </ProtectedRoute>
                     }
