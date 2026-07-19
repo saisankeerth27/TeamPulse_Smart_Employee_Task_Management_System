@@ -1,20 +1,10 @@
-@Service
-public class AuthService {
+package com.teampulse.backend.service;
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+import com.teampulse.backend.dto.ApiResponse;
+import com.teampulse.backend.dto.RegisterRequest;
 
-    public AuthService(UserRepository userRepository,
-                       RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder,
-                       JwtService jwtService) {
+public interface AuthService {
 
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
+    ApiResponse register(RegisterRequest request);
 
 }

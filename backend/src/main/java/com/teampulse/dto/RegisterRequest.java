@@ -1,34 +1,63 @@
-public String register(RegisterRequest request){
+package com.teampulse.backend.dto;
 
-    Optional<User> existingUser =
-            userRepository.findByEmail(request.getEmail());
+import com.teampulse.backend.enums.Role;
 
-    if(existingUser.isPresent()){
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-        throw new RuntimeException("Email already exists");
+public class RegisterRequest {
 
+    @NotBlank(message = "Full name is required")
+    private String fullName;
+
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email is required")
+    private String email;
+
+    @NotBlank(message = "Password is required")
+    private String password;
+
+    private Role role;
+
+    public RegisterRequest() {
     }
 
-    Role role = roleRepository
-            .findByName("EMPLOYEE")
-            .orElseThrow();
+    public RegisterRequest(String fullName, String email, String password, Role role) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
-    String encodedPassword =
-            passwordEncoder.encode(request.getPassword());
+    public String getFullName() {
+        return fullName;
+    }
 
-    User user = new User();
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-    user.setName(request.getName());
+    public String getEmail() {
+        return email;
+    }
 
-    user.setEmail(request.getEmail());
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    user.setPassword(encodedPassword);
+    public String getPassword() {
+        return password;
+    }
 
-    user.setRole(role);
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    user.setCreatedAt(LocalDateTime.now());
+    public Role getRole() {
+        return role;
+    }
 
-    userRepository.save(user);
-
-    return "User Registered Successfully";
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
