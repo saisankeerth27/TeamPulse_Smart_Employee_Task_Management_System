@@ -47,6 +47,14 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Department Not Found"));
 
+        if (!employee.getDepartment().getId().equals(department.getId())) {
+
+            throw new IllegalArgumentException(
+                    "Selected employee does not belong to the selected department."
+            );
+
+        }
+
         Task task = Task.builder()
 
                 .title(request.getTitle())

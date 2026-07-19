@@ -121,6 +121,35 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
+    @Override
+    public List<EmployeeResponse> getActiveEmployees() {
+
+        return repository.findByStatusTrue()
+
+                .stream()
+
+                .map(this::mapToResponse)
+
+                .toList();
+
+    }
+
+    @Override
+    public List<EmployeeResponse>
+    getEmployeesByDepartment(Long departmentId) {
+
+        return repository
+
+                .findByDepartmentIdAndStatusTrue(departmentId)
+
+                .stream()
+
+                .map(this::mapToResponse)
+
+                .toList();
+
+    }
+
     private EmployeeResponse mapToResponse(Employee employee) {
 
         return EmployeeResponse.builder()

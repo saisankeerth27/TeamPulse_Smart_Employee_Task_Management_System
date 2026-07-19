@@ -24,4 +24,8 @@ public interface EmployeeService {
 
     Page<Employee> getEmployeesWithPagination(int page, int size);
 
+    List<EmployeeResponse> getActiveEmployees();
+
+    List<EmployeeResponse> getEmployeesByDepartment(Long departmentId);
+
 }

@@ -19,3 +19,15 @@ export const updateEmployee = (id, employee) => {
 export const deleteEmployee = (id) => {
     return api.delete(`/employees/${id}`);
 };
+
+export const getActiveEmployees = () => {
+
+    return api.get("/employees/active");
+
+};
+
+export const getEmployeesByDepartment = (id) => {
+
+    return api.get(`/employees/department/${id}`);
+
+};

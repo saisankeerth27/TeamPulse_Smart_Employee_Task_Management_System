@@ -38,6 +38,21 @@ public class EmployeeController {
 
     }
 
+    @GetMapping("/active")
+    public List<EmployeeResponse> getActiveEmployees() {
+
+        return employeeService.getActiveEmployees();
+
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public List<EmployeeResponse>
+    getEmployeesByDepartment(@PathVariable Long departmentId) {
+
+        return employeeService.getEmployeesByDepartment(departmentId);
+
+    }
+
     @GetMapping("/{id}")
     public EmployeeResponse getEmployeeById(@PathVariable Long id) {
 
