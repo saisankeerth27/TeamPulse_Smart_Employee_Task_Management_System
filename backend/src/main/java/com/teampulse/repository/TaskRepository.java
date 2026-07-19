@@ -17,4 +17,8 @@ public interface TaskRepository
 
     List<Task> findByPriority(Priority priority);
 
+    long countByStatus(TaskStatus status);
+
+    long countByPriority(Priority priority);
+
 }

@@ -4,13 +4,16 @@ import com.teampulse.backend.dto.TaskRequest;
 import com.teampulse.backend.dto.TaskResponse;
 import com.teampulse.backend.entity.Department;
 import com.teampulse.backend.entity.Employee;
+import com.teampulse.backend.entity.Notification;
 import com.teampulse.backend.entity.Task;
 import com.teampulse.backend.enums.TaskStatus;
 import com.teampulse.backend.exception.ResourceNotFoundException;
 import com.teampulse.backend.repository.DepartmentRepository;
 import com.teampulse.backend.repository.EmployeeRepository;
+import com.teampulse.backend.repository.NotificationRepository;
 import com.teampulse.backend.repository.TaskRepository;
 import com.teampulse.backend.service.TaskService;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +24,20 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
+    private final NotificationRepository notificationRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
     public TaskServiceImpl(TaskRepository taskRepository,
                            EmployeeRepository employeeRepository,
-                           DepartmentRepository departmentRepository) {
+                           DepartmentRepository departmentRepository,
+                           NotificationRepository notificationRepository,
+                           SimpMessagingTemplate messagingTemplate) {
 
         this.taskRepository = taskRepository;
         this.employeeRepository = employeeRepository;
         this.departmentRepository = departmentRepository;
+        this.notificationRepository = notificationRepository;
+        this.messagingTemplate = messagingTemplate;
 
     }
 
@@ -76,6 +85,20 @@ public class TaskServiceImpl implements TaskService {
                 .build();
 
         Task savedTask = taskRepository.save(task);
+
+        Notification notification = Notification.builder()
+                .title("New Task Assigned")
+                .message("You have been assigned: " + task.getTitle())
+                .employee(employee)
+                .build();
+
+        notificationRepository.save(notification);
+
+        messagingTemplate.convertAndSendToUser(
+                employee.getId().toString(),
+                "/queue/notifications",
+                notification
+        );
 
         return mapToResponse(savedTask);
 

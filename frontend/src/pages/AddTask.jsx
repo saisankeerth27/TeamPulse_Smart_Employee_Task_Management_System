@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { createTask } from "../services/taskService";
 import { getDepartments } from "../services/departmentService";
 import { getEmployeesByDepartment } from "../services/employeeService";
+import api from "../services/api";
 
 function AddTask() {
 
@@ -57,6 +58,45 @@ function AddTask() {
             await getEmployeesByDepartment(departmentId);
 
         setEmployees(response.data);
+
+    };
+
+    const recommendEmployee = async () => {
+
+        if (!task.departmentId) {
+
+            alert("Please select a department first");
+
+            return;
+
+        }
+
+        const response = await api.get(
+            `/ai/recommend/${task.departmentId}`
+        );
+
+        const recommendation = response.data;
+
+        if (recommendation.employeeId) {
+
+            setTask({
+                ...task,
+                assignedEmployeeId: recommendation.employeeId
+            });
+
+            alert(
+                "Recommended: " +
+                recommendation.employeeName +
+                " (Score: " +
+                recommendation.score +
+                ")"
+            );
+
+        } else {
+
+            alert(recommendation.reason);
+
+        }
 
     };
 
@@ -231,6 +271,12 @@ function AddTask() {
                     }
 
                 </select>
+
+                <button type="button" onClick={recommendEmployee}>
+
+                    🤖 Recommend Employee
+
+                </button>
 
             </div>
 

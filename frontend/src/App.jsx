@@ -9,6 +9,7 @@ import DepartmentList from "./pages/DepartmentList";
 import AddDepartment from "./pages/AddDepartment";
 import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
+import Chat from "./pages/Chat";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -102,6 +103,17 @@ function App() {
                         <ProtectedRoute>
 
                             <AddTask />
+
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/chat"
+                    element={
+                        <ProtectedRoute>
+
+                            <Chat />
 
                         </ProtectedRoute>
                     }
