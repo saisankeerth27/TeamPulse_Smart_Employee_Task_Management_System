@@ -7,6 +7,8 @@ import EmployeeList from "./pages/EmployeeList";
 import AddEmployee from "./pages/AddEmployee";
 import DepartmentList from "./pages/DepartmentList";
 import AddDepartment from "./pages/AddDepartment";
+import TaskList from "./pages/TaskList";
+import AddTask from "./pages/AddTask";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -78,6 +80,28 @@ function App() {
                         <ProtectedRoute>
 
                             <AddDepartment />
+
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/tasks"
+                    element={
+                        <ProtectedRoute>
+
+                            <TaskList />
+
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/tasks/add"
+                    element={
+                        <ProtectedRoute>
+
+                            <AddTask />
 
                         </ProtectedRoute>
                     }
