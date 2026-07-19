@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import EmployeeList from "./pages/EmployeeList";
 import AddEmployee from "./pages/AddEmployee";
+import DepartmentList from "./pages/DepartmentList";
+import AddDepartment from "./pages/AddDepartment";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -54,6 +56,28 @@ function App() {
                         <ProtectedRoute>
 
                             <AddEmployee />
+
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/departments"
+                    element={
+                        <ProtectedRoute>
+
+                            <DepartmentList />
+
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/departments/add"
+                    element={
+                        <ProtectedRoute>
+
+                            <AddDepartment />
 
                         </ProtectedRoute>
                     }

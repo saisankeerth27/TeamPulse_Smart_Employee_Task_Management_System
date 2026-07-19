@@ -40,7 +40,9 @@ public class Employee {
 
     private Boolean status;
 
-    private Long departmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     private LocalDateTime createdAt;
 

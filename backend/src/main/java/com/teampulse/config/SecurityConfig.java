@@ -53,6 +53,10 @@ public class SecurityConfig {
                         ).hasRole("ADMIN")
 
                         .requestMatchers(
+                                "/api/departments/**"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers(
                                 "/api/admin/**"
                         ).hasRole("ADMIN")
 
