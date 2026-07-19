@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllEmployees } from "../services/employeeService";
+import { getAllEmployees, deleteEmployee } from "../services/employeeService";
 
 function EmployeeList() {
 
@@ -27,6 +27,14 @@ function EmployeeList() {
 
     };
 
+    const removeEmployee = async (id) => {
+
+        await deleteEmployee(id);
+
+        loadEmployees();
+
+    };
+
     return (
 
         <div>
@@ -49,6 +57,8 @@ function EmployeeList() {
 
                         <th>Designation</th>
 
+                        <th>Actions</th>
+
                     </tr>
 
                 </thead>
@@ -70,6 +80,19 @@ function EmployeeList() {
                                 <td>{employee.email}</td>
 
                                 <td>{employee.designation}</td>
+
+                                <td>
+
+                                    <button>Edit</button>
+
+                                    <button
+                                        onClick={() => removeEmployee(employee.id)}>
+
+                                        Delete
+
+                                    </button>
+
+                                </td>
 
                             </tr>
 

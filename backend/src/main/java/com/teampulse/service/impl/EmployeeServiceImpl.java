@@ -57,16 +57,47 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeResponse getEmployeeById(Long id) {
-        return null;
+
+        Employee employee = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Employee Not Found"));
+
+        return mapToResponse(employee);
+
     }
 
     @Override
-    public EmployeeResponse updateEmployee(Long id, EmployeeRequest request) {
-        return null;
+    public EmployeeResponse updateEmployee(Long id,
+                                           EmployeeRequest request) {
+
+        Employee employee = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Employee Not Found"));
+
+        employee.setFirstName(request.getFirstName());
+        employee.setLastName(request.getLastName());
+        employee.setEmail(request.getEmail());
+        employee.setPhone(request.getPhone());
+        employee.setDesignation(request.getDesignation());
+        employee.setSalary(request.getSalary());
+        employee.setJoiningDate(request.getJoiningDate());
+
+        Employee updatedEmployee = repository.save(employee);
+
+        return mapToResponse(updatedEmployee);
+
     }
 
     @Override
     public void deleteEmployee(Long id) {
+
+        Employee employee = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Employee Not Found"));
+
+        employee.setStatus(false);
+
+        repository.save(employee);
 
     }
 

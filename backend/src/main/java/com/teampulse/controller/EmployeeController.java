@@ -35,4 +35,29 @@ public class EmployeeController {
 
     }
 
+    @GetMapping("/{id}")
+    public EmployeeResponse getEmployeeById(@PathVariable Long id) {
+
+        return employeeService.getEmployeeById(id);
+
+    }
+
+    @PutMapping("/{id}")
+    public EmployeeResponse updateEmployee(
+            @PathVariable Long id,
+            @Valid @RequestBody EmployeeRequest request) {
+
+        return employeeService.updateEmployee(id, request);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteEmployee(@PathVariable Long id) {
+
+        employeeService.deleteEmployee(id);
+
+        return "Employee Deleted Successfully";
+
+    }
+
 }
