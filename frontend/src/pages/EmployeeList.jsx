@@ -4,6 +4,7 @@ import { getAllEmployees, deleteEmployee } from "../services/employeeService";
 function EmployeeList() {
 
     const [employees, setEmployees] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
 
@@ -35,11 +36,31 @@ function EmployeeList() {
 
     };
 
+    const filteredEmployees = employees.filter(employee =>
+
+        employee.firstName.toLowerCase().includes(search.toLowerCase()) ||
+
+        employee.lastName.toLowerCase().includes(search.toLowerCase()) ||
+
+        employee.email.toLowerCase().includes(search.toLowerCase())
+
+    );
+
     return (
 
         <div>
 
             <h2>Employees</h2>
+
+            <input
+
+                placeholder="Search Employee"
+
+                value={search}
+
+                onChange={(e) => setSearch(e.target.value)}
+
+            />
 
             <table border="1">
 
@@ -67,7 +88,7 @@ function EmployeeList() {
 
                     {
 
-                        employees.map(employee => (
+                        filteredEmployees.map(employee => (
 
                             <tr key={employee.id}>
 

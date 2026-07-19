@@ -2,10 +2,13 @@ package com.teampulse.backend.controller;
 
 import com.teampulse.backend.dto.EmployeeRequest;
 import com.teampulse.backend.dto.EmployeeResponse;
+import com.teampulse.backend.entity.Employee;
 import com.teampulse.backend.service.EmployeeService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +51,23 @@ public class EmployeeController {
             @Valid @RequestBody EmployeeRequest request) {
 
         return employeeService.updateEmployee(id, request);
+
+    }
+
+    @GetMapping("/search")
+    public List<EmployeeResponse> searchEmployee(
+            @RequestParam String name) {
+
+        return employeeService.searchEmployee(name);
+
+    }
+
+    @GetMapping("/page")
+    public Page<Employee> getEmployeesWithPagination(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        return employeeService.getEmployeesWithPagination(page, size);
 
     }
 

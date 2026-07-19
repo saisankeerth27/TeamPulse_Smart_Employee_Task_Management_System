@@ -2,6 +2,9 @@ package com.teampulse.backend.service;
 
 import com.teampulse.backend.dto.EmployeeRequest;
 import com.teampulse.backend.dto.EmployeeResponse;
+import com.teampulse.backend.entity.Employee;
+
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -16,5 +19,9 @@ public interface EmployeeService {
     EmployeeResponse updateEmployee(Long id, EmployeeRequest request);
 
     void deleteEmployee(Long id);
+
+    List<EmployeeResponse> searchEmployee(String name);
+
+    Page<Employee> getEmployeesWithPagination(int page, int size);
 
 }
